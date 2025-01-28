@@ -3,25 +3,23 @@ const { accessLogger } = require("./middleware");
 const { json } = require("body-parser");
 const cors = require("cors");
 const dbConnection = require("./db/dbConnection");
+const postsRouter = require("./routes/postsRouter");
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(json());
 app.use(accessLogger);
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}))
+
+app.use("/posts", postsRouter);
 
 dbConnection();
-
-const port = 3000;
-
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
-app.post("/post", (req, res) => {
-  const { title, content } = req.body;
-});
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
