@@ -12,26 +12,13 @@ async function getPosts(req, res) {
 async function createPost(req, res) {
     const { title, content, posts } = req.body;
 
-    const date = new Date();
-
-    const dateStr = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-    const timeStr = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-
     try {
         if (posts) {
-            const postsToInsert = posts.map(post => ({
-                title: post.title,
-                content: post.content,
-                createdAt: { date: dateStr, time: timeStr }
-            }));
-
-            // res.send(postsToInsert);
-
-            const result = await Post.insertMany(postsToInsert);
+            const result = await Post.insertMany(posts);
             return res.status(201).json({ ok: true, result: result });
         }
         else {
-            const result = await Post.create({ title, content, created_at: { time: timeStr, date: dateStr } });
+            const result = await Post.create({ title, content });
             res.status(201).json({ ok: true, result });
         }
 
