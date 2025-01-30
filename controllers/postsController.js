@@ -19,7 +19,7 @@ async function createPost(req, res) {
         }
         else {
             const result = await Post.create({ title, content });
-            res.status(201).json({ ok: true, result });
+            res.status(201).json({ ok: true });
         }
 
     } catch (err) {
