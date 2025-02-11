@@ -4,4 +4,4 @@ const accessLogger = (req, res, next) => {
   next();
 };
 
-module.exports = { accessLogger };
+module.exports = accessLogger;

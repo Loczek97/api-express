@@ -6,4 +6,8 @@ router.route('/')
     .post(postsController.createPost)
     .delete(postsController.deletePost);
 
+router.route('/:_id')
+    .get(postsController.getPostById);
+
+
 module.exports = router;

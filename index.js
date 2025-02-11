@@ -1,8 +1,9 @@
 const express = require("express");
-const { accessLogger } = require("./middleware");
+const accessLogger = require("./middleware/AccessLogger");
 const { json } = require("body-parser");
 const cors = require("cors");
 const dbConnection = require("./db/dbConnection");
+const authRouter = require("./routes/authRouter");
 const postsRouter = require("./routes/postsRouter");
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors({
   credentials: true
 }))
 
+app.use("/auth", authRouter);
 app.use("/posts", postsRouter);
 
 dbConnection();
